@@ -112,6 +112,9 @@ class MysqlHelper
      */
     public function startTrans()
     {
+        // 设置非自动提交事务
+        $this->connect->autocommit(false);
+        // 开启事务
         return $this->connect->begin_transaction();
     }
 
@@ -141,12 +144,12 @@ class MysqlHelper
      * 将.sql文件导入到mysql数据库
      * @param string $sqlFilePath SQL文件路径
      * @param string $prefix     表前缀(默认为空)
-     * @param string $oldPrefix 旧表前缀(默认为__PREFIX__)
+     * @param string|array $oldPrefix 旧表前缀(默认为__PREFIX__)
      * @return void
      * @copyright 贵州小白基地网络科技有限公司
      * @author 楚羽幽 cy958416459@qq.com
      */
-    public function importSqlFile(string $sqlFilePath, string $prefix = '', string $oldPrefix = '__PREFIX__')
+    public function importSqlFile(string $sqlFilePath, string $prefix = '', string|array $oldPrefix = '__PREFIX__')
     {
         if (!file_exists($sqlFilePath)) {
             throw new InvalidArgumentException('sql文件不存在');
@@ -175,8 +178,6 @@ class MysqlHelper
                 $tmp = '';
             }
         }
-        // 关闭连接
-        $this->connect->close();
     }
     
     /**
@@ -241,6 +242,15 @@ class MysqlHelper
         }
         // 关闭文件和连接
         fclose($outputFile);
+    }
+
+    /**
+     * 析构函数
+     * @copyright 贵州小白基地网络科技有限公司
+     * @author 楚羽幽 cy958416459@qq.com
+     */
+    public function __destruct()
+    {
         $this->connect->close();
     }
 }
