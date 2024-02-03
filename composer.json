@@ -1,5 +1,5 @@
 {
-    "name": "xiaobai/mysql-helper",
+    "name": "xbai8/mysql-helper",
     "description": "一个便捷的MySQL导入导出的助手类库。 a mysql import and export helper library.",
     "keywords": ["php", "mysql", "helper", "import", "export", "xiaobai"],
     "authors": [
