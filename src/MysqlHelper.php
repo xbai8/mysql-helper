@@ -77,7 +77,13 @@ class MysqlHelper
         $this->charset = $charset;
 
         // 创建MySQL连接
-        $this->connect = new mysqli($host, $username, $password, $database, $port);
+        $this->connect = new mysqli(
+            $this->host,
+            $this->username,
+            $this->password,
+            $this->database,
+            $this->port
+        );
 
         // 检查连接是否成功
         if ($this->connect->connect_error) {
